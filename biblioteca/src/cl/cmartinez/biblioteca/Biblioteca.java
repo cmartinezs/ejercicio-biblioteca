@@ -44,8 +44,9 @@ public class Biblioteca
         
         for (int i = 0; i < publicaciones.length; i++) 
         {
+            Publicacion unaPublicacion = publicaciones[i];
+            unaPublicacion.mostrarDatos();
             System.out.println("");
-            publicaciones[i].mostrarDatos();
         }
     }
 }

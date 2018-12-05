@@ -55,7 +55,6 @@ public abstract class Publicacion
         System.out.println("autor: " + autor + "");
         System.out.println("fecha: " + fecha + "");
         System.out.println("prestado: " + prestado + "");
-        
         mostrarDatosEspecificos();
     }
     
