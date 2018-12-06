@@ -39,7 +39,6 @@ public class Tesis extends Publicacion
     @Override
     public void mostrarDatosEspecificos() 
     {        
-        System.out.println("nota: " + nota + "");
-        System.out.println("profesor: " + profesor + "");
+        System.out.print(", " + nota + ", " + profesor + "");
     }
 }

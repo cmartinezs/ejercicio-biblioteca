@@ -51,11 +51,9 @@ public abstract class Publicacion
     public void mostrarDatos()
     {
         String tipoPublicacion = getTipoPublicacion();
-        System.out.println(tipoPublicacion + " '" + titulo + "'");
-        System.out.println("autor: " + autor + "");
-        System.out.println("fecha: " + fecha + "");
-        System.out.println("prestado: " + prestado + "");
+        System.out.print(tipoPublicacion + " '" + titulo + "', " + autor + ", " + fecha + "");
         mostrarDatosEspecificos();
+        System.out.print(", " + (prestado ? "prestado" : "disponible") + "\n");
     }
     
     public abstract String getTipoPublicacion();

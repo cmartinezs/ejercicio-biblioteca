@@ -9,7 +9,7 @@ package cl.cmartinez.biblioteca.publicaciones;
  *
  * @author carlo
  */
-public class Libro extends Publicacion
+public class Libro extends Publicacion implements Prestable
 {
     private String isbn;
 
@@ -30,6 +30,34 @@ public class Libro extends Publicacion
     @Override
     public void mostrarDatosEspecificos() 
     {
-        System.out.println("isbn: " + isbn + "");
+        System.out.print(", " + isbn + "");
+    }
+
+    @Override
+    public boolean prestar() 
+    {
+        boolean sePudoPrestar = false;
+        
+        if (!prestado) 
+        {
+            prestado = true;
+            sePudoPrestar = true;
+        }
+        
+        return sePudoPrestar;
+    }
+
+    @Override
+    public boolean devolver() 
+    {
+        boolean sePudoDevolver = false;
+        
+        if (prestado) 
+        {
+            prestado = false;
+            sePudoDevolver = true;
+        }
+        
+        return sePudoDevolver;
     }
 }
