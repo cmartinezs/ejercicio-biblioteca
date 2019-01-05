@@ -20,9 +20,13 @@ public class VentanaTest {
         MiVentana2 ventana2 = new MiVentana2();
         ventana2.setVisible(true);
         MiVentana3 ventana3 = new MiVentana3();
-        ventana3.setVisible(true);*/
+        ventana3.setVisible(true);
         Ventana4 ventana4 = new Ventana4();
         ventana4.setVisible(true);
+        VentanaListener ventanaListener = new VentanaListener();
+        ventanaListener.setVisible(true);*/
+        VentanaCajaTexto ventanaCajaTexto = new VentanaCajaTexto();
+        ventanaCajaTexto.setVisible(true);
         System.out.println("Ejecución post-ventana");
     }
 }
