@@ -192,7 +192,7 @@ public final class Login extends JFrame implements ActionListener, KeyListener
         System.out.println("password: " + String.valueOf(password));
         
         if(username != null && !username.trim().isEmpty()
-                && password != null && password.length > 0)
+                && password != null && password.length > 3 && username.trim().length() > 3)
         {
             botonIngresar.setEnabled(true);
         }
