@@ -12,6 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -131,6 +136,14 @@ public final class Login extends JFrame implements ActionListener, KeyListener
         if(botonIngresar == null)
         {
             botonIngresar = new JButton();
+            try
+            {
+                botonIngresar.setIcon(new ImageIcon("resources/imagenes/bullet_arrow_right.png"));
+            }
+            catch (Exception ex)
+            {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
             botonIngresar.setName("botonIngresar");
             botonIngresar.setActionCommand("botonIngresar");
             botonIngresar.setText("Ingresar");
