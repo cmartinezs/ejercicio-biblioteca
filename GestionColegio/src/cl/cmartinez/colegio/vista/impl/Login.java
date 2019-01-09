@@ -22,7 +22,7 @@ import javax.swing.JTextField;
  *
  * @author carlo
  */
-public final class Login extends JFrame implements ActionListener, KeyListener
+public final class Login extends Ventana
 {
     private JTextField cajaTextoUsername;
     private JPasswordField cajaTextoPassword;
