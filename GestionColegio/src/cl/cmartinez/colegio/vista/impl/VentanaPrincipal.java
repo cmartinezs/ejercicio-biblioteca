@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cl.cmartinez.colegio.vista;
+package cl.cmartinez.colegio.vista.impl;
 
+import cl.cmartinez.colegio.vista.Ventana;
 import cl.cmartinez.colegio.vista.panels.BackgroundPanel;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -27,9 +28,8 @@ import javax.swing.JToolBar;
  *
  * @author carlo
  */
-public final class VentanaPrincipal extends JFrame
+public final class VentanaPrincipal extends Ventana
 {
-
     private JLabel etiquetaBienvenida;
     private JPanel panelNorte;
     private JPanel panelSur;
@@ -167,7 +167,6 @@ public final class VentanaPrincipal extends JFrame
             botonGuardar.setText("");
             botonGuardar.setToolTipText("Guardar");
             botonGuardar.setIcon(new ImageIcon("resources/imagenes/diskette.png"));
-            //botonGuardar.addActionListener(this);
             botonGuardar.setSize(32, 32);
             botonGuardar.setLocation(0, 0);
         }
@@ -184,7 +183,6 @@ public final class VentanaPrincipal extends JFrame
             botonGuardarTodo.setText("");
             botonGuardarTodo.setToolTipText("Guardar Todo");
             botonGuardarTodo.setIcon(new ImageIcon("resources/imagenes/disk_multiple.png"));
-            //botonGuardar.addActionListener(this);
             botonGuardarTodo.setSize(32, 32);
             botonGuardarTodo.setLocation(32, 0);
         }

@@ -3,25 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cl.cmartinez.colegio.vista;
+package cl.cmartinez.colegio.vista.impl;
 
+import cl.cmartinez.colegio.vista.Ventana;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -45,9 +38,6 @@ public final class Login extends JFrame implements ActionListener, KeyListener
     
     private final int ANCHO_JFRAME = 350;
     private final int ALTO_JFRAME = 165;
-    
-    private final String USERNAME = "Carlos";
-    private final String PASSWORD = "Carlos2019";
     
     private boolean logueado = false;
     
@@ -96,6 +86,7 @@ public final class Login extends JFrame implements ActionListener, KeyListener
         }
         return etiquetaPassword;
     }
+    
     public JTextField getCajaTextoUsername() 
     {
         if(cajaTextoUsername == null)
@@ -103,7 +94,6 @@ public final class Login extends JFrame implements ActionListener, KeyListener
             cajaTextoUsername = new JTextField();
             cajaTextoUsername.setName("cajaTextoUsername");
             cajaTextoUsername.setActionCommand("cajaTextoUsername");
-            cajaTextoUsername.addKeyListener(this);
             cajaTextoUsername.setBounds(
                     ANCHO_COMPONENTES + SEPARACION_HORIZONTAL*2
                     , SEPARACION_VERTICAL
@@ -120,7 +110,6 @@ public final class Login extends JFrame implements ActionListener, KeyListener
             cajaTextoPassword = new JPasswordField();
             cajaTextoPassword.setName("cajaTextoPassword");
             cajaTextoPassword.setActionCommand("cajaTextoPassword");
-            cajaTextoPassword.addKeyListener(this);
             cajaTextoPassword.setBounds(
                     ANCHO_COMPONENTES + SEPARACION_HORIZONTAL*2
                     , ALTO_COMPONENTES + SEPARACION_VERTICAL*2
@@ -148,7 +137,6 @@ public final class Login extends JFrame implements ActionListener, KeyListener
             botonIngresar.setActionCommand("botonIngresar");
             botonIngresar.setText("Ingresar");
             botonIngresar.setEnabled(false);
-            botonIngresar.addActionListener(this);
             botonIngresar.setBounds(
                     ANCHO_COMPONENTES + SEPARACION_HORIZONTAL*2
                     , ALTO_COMPONENTES*2 + SEPARACION_VERTICAL*3
@@ -158,72 +146,13 @@ public final class Login extends JFrame implements ActionListener, KeyListener
         return botonIngresar;
     }
 
-    public boolean isLogueado() {
+    public boolean isLogueado() 
+    {
         return logueado;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) 
+    public void setLogueado(boolean logueado)
     {
-        String comando = e.getActionCommand();
-        System.out.println("Comando: " + comando);
-        switch(comando)
-        {
-            case "botonIngresar": validarLogin(); break;
-            default: break;
-        }
-    }
-
-    private void validarLogin() 
-    {
-        String username = getCajaTextoUsername().getText();
-        char[] password = getCajaTextoPassword().getPassword();
-        
-        if(username == null || username.trim().isEmpty()
-                || password == null || password.length == 0)
-        {
-            JOptionPane.showMessageDialog(null, "Debe ingresar un usuario y contraseña válido", "Error de Login", JOptionPane.ERROR_MESSAGE);
-        }
-        else if (!username.equals(USERNAME) || !String.valueOf(password).equals(PASSWORD))
-        {
-            JOptionPane.showMessageDialog(null, "Usuario y/o contraseña no coinciden", "Error de Login", JOptionPane.ERROR_MESSAGE);
-        }
-        else
-        {
-            logueado = true;
-        }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) 
-    {
-        System.out.println("keyTyped: " + e.getKeyChar());
-        String username = getCajaTextoUsername().getText();
-        char[] password = getCajaTextoPassword().getPassword();
-        
-        System.out.println("username: " + username);
-        System.out.println("password: " + String.valueOf(password));
-        
-        if(username != null && !username.trim().isEmpty()
-                && password != null && password.length > 3 && username.trim().length() > 3)
-        {
-            botonIngresar.setEnabled(true);
-        }
-        else
-        {
-            botonIngresar.setEnabled(false);
-        }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) 
-    {
-        //Nada por ahora
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) 
-    {
-        //Nada por ahora
+        this.logueado = logueado;
     }
 }

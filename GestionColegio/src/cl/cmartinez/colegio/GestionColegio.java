@@ -5,42 +5,31 @@
  */
 package cl.cmartinez.colegio;
 
-import cl.cmartinez.colegio.vista.Login;
-import cl.cmartinez.colegio.vista.VentanaPrincipal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import cl.cmartinez.colegio.controlador.impl.ControladorVentanaPrincipal;
+import cl.cmartinez.colegio.controlador.ControladorPrincipal;
+import cl.cmartinez.colegio.controlador.impl.ControladorLogin;
+import cl.cmartinez.colegio.modelo.impl.ModeloLogin;
+import cl.cmartinez.colegio.modelo.impl.ModeloVentanaPrincipal;
+import cl.cmartinez.colegio.vista.impl.Login;
+import cl.cmartinez.colegio.vista.impl.VentanaPrincipal;
 
 /**
  *
  * @author carlo
  */
-public class GestionColegio 
+public class GestionColegio
 {
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
-        Login login = new Login();
-        login.setVisible(true);
-        
-        //Esperamos mientras aun no esté logueado
-        while(!login.isLogueado())
-        {
-            try 
-            {
-                //"Dormimos" la ejecucion del programa principal por 1000 milisegundos
-                Thread.sleep(1000);
-            } 
-            catch (InterruptedException ex) 
-            {    
-                Logger.getLogger(GestionColegio.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        //Cuando está loguado ocultamos la ventana de login y mostramos la ventana principal
-        login.setVisible(false);
-        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
-        ventanaPrincipal.setVisible(true);
+        ControladorPrincipal cp = new ControladorPrincipal();
+        cp.agregarControlador("login", new ControladorLogin(new Login(), new ModeloLogin(null, null)));
+        cp.agregarControlador("principal", new ControladorVentanaPrincipal(new VentanaPrincipal(), new ModeloVentanaPrincipal()));
+        cp.iniciarControlador("login");
+        cp.mostrarVentana("login");
+        cp.mostrarVentana("principal");
     }
 }
