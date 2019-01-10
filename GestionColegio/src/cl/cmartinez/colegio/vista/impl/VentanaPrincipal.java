@@ -17,6 +17,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
@@ -37,6 +38,7 @@ public final class VentanaPrincipal extends Ventana
     private JPanel panelOeste;
     private JTabbedPane panelDePestanas;
     private JPanel panelInicio;
+    private JComboBox<String> comboCategoria;
     
     private JToolBar barraDeHerramientas;
     private JButton botonGuardar;
@@ -84,6 +86,7 @@ public final class VentanaPrincipal extends Ventana
             }
 
             panelInicio.add(getEtiquetaBienvenida());
+            panelInicio.add(getComboCategoria());
         }
         return panelInicio;
     }
@@ -189,4 +192,13 @@ public final class VentanaPrincipal extends Ventana
         return botonGuardarTodo;
     }
     
+    public JComboBox<String> getComboCategoria()
+    {
+        if(comboCategoria == null)
+        {
+            comboCategoria = new JComboBox();
+            comboCategoria.setBounds(300, 80, 30, 200);
+        }
+        return comboCategoria;
+    }
 }
