@@ -24,6 +24,7 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
         super(ventana, modelo);
     }
     
+    @Override
     public void iniciarControlador()
     {
         getVentanaPrincipal().getBotonGuardar().addActionListener(this);
