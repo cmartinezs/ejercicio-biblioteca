@@ -30,6 +30,7 @@ public class GestionColegio
         cp.agregarControlador("principal", new ControladorVentanaPrincipal(new VentanaPrincipal(), new ModeloVentanaPrincipal()));
         cp.iniciarControlador("login");
         cp.mostrarVentana("login");
+        cp.iniciarControlador("principal");
         cp.mostrarVentana("principal");
     }
 }
