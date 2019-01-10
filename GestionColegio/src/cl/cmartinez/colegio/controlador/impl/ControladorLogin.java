@@ -61,12 +61,16 @@ public class ControladorLogin extends Controlador implements ActionListener, Key
         char[] password = getLogin().getCajaTextoPassword().getPassword();
         
         ModeloLogin modeloLogin = getModeloLogin();
-        modeloLogin.cargarDatos();
+        modeloLogin.obtenerUsuario(username);
         
         if(username == null || username.trim().isEmpty()
                 || password == null || password.length <= 3 || username.trim().length() <= 3)
         {
             JOptionPane.showMessageDialog(null, "Debe ingresar un usuario y contraseña válido", "Error de Login", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(modeloLogin.getUsername() == null)
+        {
+            JOptionPane.showMessageDialog(null, "El usuario ingresado no existe", "Error de Login", JOptionPane.ERROR_MESSAGE);
         }
         else if (!username.equals(modeloLogin.getUsername()) || !String.valueOf(password).equals(modeloLogin.getPassword()))
         {
