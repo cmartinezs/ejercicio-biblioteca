@@ -9,6 +9,7 @@ import cl.cmartinez.colegio.vista.Ventana;
 import cl.cmartinez.colegio.vista.panels.BackgroundPanel;
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -38,11 +39,14 @@ public final class VentanaPrincipal extends Ventana
     private JPanel panelOeste;
     private JTabbedPane panelDePestanas;
     private JPanel panelInicio;
+    private JPanel panelSegundo;
     private JComboBox<String> comboCategoria;
     
     private JToolBar barraDeHerramientas;
+    private JToolBar barraMenu;
     private JButton botonGuardar;
     private JButton botonGuardarTodo;
+    private JButton botonFuncion;
     
     private static final Font FUENTE_PESTANA = new Font("Verdana", Font.BOLD, 12);
 
@@ -55,8 +59,8 @@ public final class VentanaPrincipal extends Ventana
         cp.setLayout(new BorderLayout());
         cp.add(getPanelDePestanas(), BorderLayout.CENTER);
         cp.add(getPanelNorte(), BorderLayout.NORTH);
-        cp.add(getPanelSur(), BorderLayout.SOUTH);
-        cp.add(getPanelEste(), BorderLayout.EAST);
+        cp.add(new JButton("South"), BorderLayout.SOUTH);
+        cp.add(new JButton("East"), BorderLayout.EAST);
         cp.add(getPanelOeste(), BorderLayout.WEST);
     }
 
@@ -78,17 +82,37 @@ public final class VentanaPrincipal extends Ventana
             {
                 Image bgImagen = ImageIO.read(new File("resources/imagenes/bg/wp2224998.jpg"));
                 panelInicio = new BackgroundPanel(bgImagen, BackgroundPanel.SCALED);
-
             }
             catch (IOException ex)
             {
                 panelInicio = new JPanel();
             }
 
+            panelInicio.setLayout(null);
             panelInicio.add(getEtiquetaBienvenida());
-            panelInicio.add(getComboCategoria());
         }
         return panelInicio;
+    }
+    
+    public JPanel getPanelSegundo()
+    {
+        if (panelSegundo == null)
+        {
+            try
+            {
+                Image bgImagen = ImageIO.read(new File("resources/imagenes/bg/wp2224998.jpg"));
+                panelSegundo = new BackgroundPanel(bgImagen, BackgroundPanel.SCALED);
+
+            }
+            catch (IOException ex)
+            {
+                panelSegundo = new JPanel();
+            }
+
+            panelSegundo.setLayout(null);
+            panelSegundo.add(getComboCategoria());
+        }
+        return panelSegundo;
     }
 
     public JTabbedPane getPanelDePestanas()
@@ -97,9 +121,12 @@ public final class VentanaPrincipal extends Ventana
         {
             panelDePestanas = new JTabbedPane();
             panelDePestanas.add(getPanelInicio(), 0);
+            panelDePestanas.add(getPanelSegundo(), 1);
             panelDePestanas.setName("panelDePestanas");
             panelDePestanas.setTitleAt(0, "Inicio");
+            panelDePestanas.setTitleAt(1, "Segundo");
             panelDePestanas.setIconAt(0, new ImageIcon("resources/imagenes/home_page.png"));
+            panelDePestanas.setIconAt(1, new ImageIcon("resources/imagenes/user_green.png"));
             panelDePestanas.setFont(FUENTE_PESTANA);
         }
         return panelDePestanas;
@@ -144,8 +171,23 @@ public final class VentanaPrincipal extends Ventana
         if (panelOeste == null)
         {
             panelOeste = new JPanel();
+            panelOeste.setLayout(new FlowLayout());
+            panelOeste.setSize(300, getContentPane().getHeight() - getPanelNorte().getHeight() - getPanelSur().getHeight());
+            panelOeste.setLocation(0, 0);
+            panelOeste.add(getBotonFuncion());
         }
         return panelOeste;
+    }
+    
+    public JToolBar getBarraMenu()
+    {
+        if(barraMenu == null)
+        {
+            barraMenu = new JToolBar("barraMenu");
+            barraMenu.setBounds(0, 0, getPanelOeste().getWidth(), getPanelOeste().getHeight());
+            barraMenu.add(getBotonFuncion());
+        }
+        return barraMenu;
     }
 
     public JToolBar getBarraDeHerramientas()
@@ -197,8 +239,21 @@ public final class VentanaPrincipal extends Ventana
         if(comboCategoria == null)
         {
             comboCategoria = new JComboBox();
-            comboCategoria.setBounds(300, 80, 30, 200);
+            comboCategoria.setBounds(300, 80, 200, 30);
         }
         return comboCategoria;
+    }
+
+    public JButton getBotonFuncion()
+    {
+        if(botonFuncion == null)
+        {
+            botonFuncion = new JButton();
+            botonFuncion.setName("botonFuncion");
+            botonFuncion.setActionCommand("botonFuncion");
+            botonFuncion.setText("Agregar pestaña");
+            botonFuncion.setSize(50, 30);
+        }
+        return botonFuncion;
     }
 }
