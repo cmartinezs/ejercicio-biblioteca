@@ -15,18 +15,18 @@ public class VentanaTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /*MiVentana ventana = new MiVentana();
+        MiVentana ventana = new MiVentana();
         ventana.setVisible(true);
-        MiVentana2 ventana2 = new MiVentana2();
+        /*MiVentana2 ventana2 = new MiVentana2();
         ventana2.setVisible(true);
         MiVentana3 ventana3 = new MiVentana3();
         ventana3.setVisible(true);
         Ventana4 ventana4 = new Ventana4();
         ventana4.setVisible(true);
         VentanaListener ventanaListener = new VentanaListener();
-        ventanaListener.setVisible(true);*/
+        ventanaListener.setVisible(true);
         VentanaCajaTexto ventanaCajaTexto = new VentanaCajaTexto();
-        ventanaCajaTexto.setVisible(true);
+        ventanaCajaTexto.setVisible(true);*/
         System.out.println("Ejecución post-ventana");
     }
 }

@@ -11,6 +11,8 @@ import cl.cmartinez.colegio.modelo.impl.ModeloVentanaPrincipal;
 import cl.cmartinez.colegio.vista.impl.VentanaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import javax.swing.JComboBox;
  *
  * @author carlo
  */
-public final class ControladorVentanaPrincipal extends Controlador implements ActionListener, KeyListener
+public final class ControladorVentanaPrincipal extends Controlador implements ActionListener, KeyListener, ItemListener
 {
     public ControladorVentanaPrincipal(VentanaPrincipal ventana, Modelo modelo)
     {
@@ -33,6 +35,7 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
         getVentanaPrincipal().getBotonGuardar().addActionListener(this);
         getVentanaPrincipal().getBotonGuardarTodo().addActionListener(this);
         JComboBox<String> comboCategoria = getVentanaPrincipal().getComboCategoria();
+        comboCategoria.addItemListener(this);
         ArrayList<String> lista = getModeloVentanaPrincipal().obtenerElementosComboCategoria();
         
         for(String elemento: lista)
@@ -79,5 +82,11 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public void itemStateChanged(ItemEvent e)
+    {
+        JComboBox c = (JComboBox)e.getSource();
+        String nombre = c.getName();
+    }
 }
