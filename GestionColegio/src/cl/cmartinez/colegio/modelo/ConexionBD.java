@@ -39,12 +39,12 @@ public class ConexionBD
         }
     }
     
-    private Connection crearConexion() throws SQLException
+    public Connection crearConexion() throws SQLException
     {
         return DriverManager.getConnection(DB_URL,USER,PASS);
     }
     
-    private Statement crearSentencia() throws SQLException
+    public Statement crearSentencia() throws SQLException
     {
         return crearConexion().createStatement();
     }

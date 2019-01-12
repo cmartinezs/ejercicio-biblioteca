@@ -34,19 +34,10 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
     {
         getVentanaPrincipal().getBotonGuardar().addActionListener(this);
         getVentanaPrincipal().getBotonGuardarTodo().addActionListener(this);
+        getVentanaPrincipal().getBotonIngresarCategoria().addActionListener(this);
         JComboBox<String> comboCategoria = getVentanaPrincipal().getComboCategoria();
         comboCategoria.addItemListener(this);
-        ArrayList<String> lista = getModeloVentanaPrincipal().obtenerElementosComboCategoria();
-        
-        for(String elemento: lista)
-        {
-            comboCategoria.addItem(elemento);
-        }
-        
-        /*for(int i = 0; i < lista.size(); i++)
-        {
-            String elemento = lista.get(i);
-        }*/
+        cargarCategorias();
     }
     
     public VentanaPrincipal getVentanaPrincipal()
@@ -62,7 +53,15 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       String comando = e.getActionCommand();
+       
+       if(comando.equals("botonIngresarCategoria"))
+       {
+           String nombreCategoria = getVentanaPrincipal().getCampoTextoNombreCategoria().getText();
+           String descripcionCategoria = getVentanaPrincipal().getCampoTextoDescripcionCategoria().getText();
+           getModeloVentanaPrincipal().ingresarCategoria(nombreCategoria, descripcionCategoria);
+           cargarCategorias();
+       }
     }
 
     @Override
@@ -88,5 +87,16 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
     {
         JComboBox c = (JComboBox)e.getSource();
         String nombre = c.getName();
+    }
+
+    private void cargarCategorias()
+    {
+        JComboBox<String> comboCategoria = getVentanaPrincipal().getComboCategoria();
+        comboCategoria.removeAllItems();
+        ArrayList<String> lista = getModeloVentanaPrincipal().obtenerElementosComboCategoria();
+        for(String elemento: lista)
+        {
+            comboCategoria.addItem(elemento);
+        }
     }
 }

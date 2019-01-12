@@ -24,6 +24,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 /**
@@ -47,6 +48,10 @@ public final class VentanaPrincipal extends Ventana
     private JButton botonGuardar;
     private JButton botonGuardarTodo;
     private JButton botonFuncion;
+    
+    private JTextField campoTextoNombreCategoria;
+    private JTextField campoTextoDescripcionCategoria;
+    private JButton botonIngresarCategoria;
     
     private static final Font FUENTE_PESTANA = new Font("Verdana", Font.BOLD, 12);
 
@@ -110,6 +115,9 @@ public final class VentanaPrincipal extends Ventana
             }
 
             panelSegundo.setLayout(null);
+            panelSegundo.add(getCampoTextoNombreCategoria());
+            panelSegundo.add(getCampoTextoDescripcionCategoria());
+            panelSegundo.add(getBotonIngresarCategoria());
             panelSegundo.add(getComboCategoria());
         }
         return panelSegundo;
@@ -256,4 +264,39 @@ public final class VentanaPrincipal extends Ventana
         }
         return botonFuncion;
     }
+
+    public JTextField getCampoTextoNombreCategoria()
+    {
+        if(campoTextoNombreCategoria == null)
+        {
+            campoTextoNombreCategoria = new JTextField();
+            campoTextoNombreCategoria.setBounds(50, 80, 200, 30);
+        }
+        return campoTextoNombreCategoria;
+    }
+
+    public JTextField getCampoTextoDescripcionCategoria()
+    {
+        if(campoTextoDescripcionCategoria == null)
+        {
+            campoTextoDescripcionCategoria = new JTextField();
+            campoTextoDescripcionCategoria.setBounds(50, 120, 200, 30);
+        }
+        return campoTextoDescripcionCategoria;
+    }
+
+    public JButton getBotonIngresarCategoria()
+    {
+        if(botonIngresarCategoria == null)
+        {
+            botonIngresarCategoria = new JButton();
+            botonIngresarCategoria.setText("Ingresar Categoria");
+            botonIngresarCategoria.setName("botonIngresarCategoria");
+            botonIngresarCategoria.setActionCommand("botonIngresarCategoria");
+            botonIngresarCategoria.setBounds(50, 160, 200, 30);
+        }
+        return botonIngresarCategoria;
+    }
+    
+    
 }
