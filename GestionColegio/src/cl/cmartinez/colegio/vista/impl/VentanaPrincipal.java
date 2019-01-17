@@ -8,14 +8,18 @@ package cl.cmartinez.colegio.vista.impl;
 import cl.cmartinez.colegio.vista.Ventana;
 import cl.cmartinez.colegio.vista.panels.BackgroundPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,9 +27,12 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.ScrollPaneLayout;
 
 /**
  *
@@ -33,6 +40,7 @@ import javax.swing.JToolBar;
  */
 public final class VentanaPrincipal extends Ventana
 {
+
     private JLabel etiquetaBienvenida;
     private JPanel panelNorte;
     private JPanel panelSur;
@@ -41,18 +49,27 @@ public final class VentanaPrincipal extends Ventana
     private JTabbedPane panelDePestanas;
     private JPanel panelInicio;
     private JPanel panelSegundo;
+    private JPanel panelTercero;
+    private JPanel panelDentroDeScroll;
+    private JScrollPane panelScroll;
     private JComboBox<String> comboCategoria;
-    
+
     private JToolBar barraDeHerramientas;
     private JToolBar barraMenu;
     private JButton botonGuardar;
     private JButton botonGuardarTodo;
     private JButton botonFuncion;
-    
+
     private JTextField campoTextoNombreCategoria;
     private JTextField campoTextoDescripcionCategoria;
     private JButton botonIngresarCategoria;
-    
+    private JButton botonMostrarSeleccionRadioButtons;
+    private JRadioButton radioButtonUno;
+    private JRadioButton radioButtonDos;
+    private JRadioButton radioButtonTres;
+
+    private ButtonGroup grupoRadioButtons;
+
     private static final Font FUENTE_PESTANA = new Font("Verdana", Font.BOLD, 12);
 
     public VentanaPrincipal()
@@ -98,7 +115,7 @@ public final class VentanaPrincipal extends Ventana
         }
         return panelInicio;
     }
-    
+
     public JPanel getPanelSegundo()
     {
         if (panelSegundo == null)
@@ -123,6 +140,73 @@ public final class VentanaPrincipal extends Ventana
         return panelSegundo;
     }
 
+    public JPanel getPanelTercero()
+    {
+        if (panelTercero == null)
+        {
+            try
+            {
+                Image bgImagen = ImageIO.read(new File("resources/imagenes/bg/wp2224998.jpg"));
+                panelTercero = new BackgroundPanel(bgImagen, BackgroundPanel.SCALED);
+
+            }
+            catch (IOException ex)
+            {
+                panelTercero = new JPanel();
+            }
+
+            panelTercero.setLayout(null);
+            panelTercero.add(getRadioButtonUno());
+            panelTercero.add(getRadioButtonDos());
+            panelTercero.add(getRadioButtonTres());
+            panelTercero.add(getBotonMostrarSeleccionRadioButtons());
+        }
+        return panelTercero;
+    }
+    
+    public JScrollPane getPanelScroll()
+    {
+        if (panelScroll == null)
+        {
+            panelScroll = new JScrollPane(getPanelDentroDeScroll());
+            panelScroll.setLayout(new ScrollPaneLayout());
+            panelScroll.setBounds(0, 0, 400, 600);
+            panelScroll.setBorder(BorderFactory.createLineBorder(Color.yellow));
+        }
+        return panelScroll;
+    }
+    
+    public JPanel getPanelDentroDeScroll()
+    {
+        if (panelDentroDeScroll == null)
+        {
+            //try
+            //{
+            //    Image bgImagen = ImageIO.read(new File("resources/imagenes/bg/wp2224998.jpg"));
+            //    panelDentroDeScroll = new BackgroundPanel(bgImagen, BackgroundPanel.SCALED);
+
+            //}
+            //catch (IOException ex)
+            //{
+                panelDentroDeScroll = new JPanel();
+            //}
+
+            panelDentroDeScroll.setLayout(new GridLayout());
+            panelDentroDeScroll.setBounds(0, 0, 400, 2000);
+            
+            JPanel pivote = new JPanel();
+            pivote.setLayout(null);
+            pivote.setBounds(0, 0, 400, 2000);
+            pivote.add(getRadioButtonUno());
+            pivote.add(getRadioButtonDos());
+            pivote.add(getRadioButtonTres());
+            pivote.add(getBotonMostrarSeleccionRadioButtons());
+            
+            panelDentroDeScroll.add(pivote);
+        }
+        return panelDentroDeScroll;
+    }
+
     public JTabbedPane getPanelDePestanas()
     {
         if (panelDePestanas == null)
@@ -130,11 +214,19 @@ public final class VentanaPrincipal extends Ventana
             panelDePestanas = new JTabbedPane();
             panelDePestanas.add(getPanelInicio(), 0);
             panelDePestanas.add(getPanelSegundo(), 1);
+            panelDePestanas.add(getPanelTercero(), 2);
+            JPanel pivote = new JPanel();
+            pivote.setLayout(null);
+            pivote.add(getPanelScroll());
+            panelDePestanas.add(pivote, 3);
             panelDePestanas.setName("panelDePestanas");
             panelDePestanas.setTitleAt(0, "Inicio");
             panelDePestanas.setTitleAt(1, "Segundo");
+            panelDePestanas.setTitleAt(2, "Tercero");
             panelDePestanas.setIconAt(0, new ImageIcon("resources/imagenes/home_page.png"));
             panelDePestanas.setIconAt(1, new ImageIcon("resources/imagenes/user_green.png"));
+            panelDePestanas.setIconAt(2, new ImageIcon("resources/imagenes/user_silhouette.png"));
+            panelDePestanas.setIconAt(3, new ImageIcon("resources/imagenes/key_solid.png"));
             panelDePestanas.setFont(FUENTE_PESTANA);
         }
         return panelDePestanas;
@@ -186,10 +278,10 @@ public final class VentanaPrincipal extends Ventana
         }
         return panelOeste;
     }
-    
+
     public JToolBar getBarraMenu()
     {
-        if(barraMenu == null)
+        if (barraMenu == null)
         {
             barraMenu = new JToolBar("barraMenu");
             barraMenu.setBounds(0, 0, getPanelOeste().getWidth(), getPanelOeste().getHeight());
@@ -200,7 +292,7 @@ public final class VentanaPrincipal extends Ventana
 
     public JToolBar getBarraDeHerramientas()
     {
-        if(barraDeHerramientas == null)
+        if (barraDeHerramientas == null)
         {
             barraDeHerramientas = new JToolBar("barraPrincipal");
             barraDeHerramientas.setBounds(0, 0, getPanelNorte().getWidth(), getPanelNorte().getHeight());
@@ -212,7 +304,7 @@ public final class VentanaPrincipal extends Ventana
 
     public JButton getBotonGuardar()
     {
-        if(botonGuardar == null)
+        if (botonGuardar == null)
         {
             botonGuardar = new JButton();
             botonGuardar.setName("botonGuardar");
@@ -228,7 +320,7 @@ public final class VentanaPrincipal extends Ventana
 
     public JButton getBotonGuardarTodo()
     {
-        if(botonGuardarTodo == null)
+        if (botonGuardarTodo == null)
         {
             botonGuardarTodo = new JButton();
             botonGuardarTodo.setName("botonGuardarTodo");
@@ -241,10 +333,10 @@ public final class VentanaPrincipal extends Ventana
         }
         return botonGuardarTodo;
     }
-    
+
     public JComboBox<String> getComboCategoria()
     {
-        if(comboCategoria == null)
+        if (comboCategoria == null)
         {
             comboCategoria = new JComboBox();
             comboCategoria.setBounds(300, 80, 200, 30);
@@ -254,7 +346,7 @@ public final class VentanaPrincipal extends Ventana
 
     public JButton getBotonFuncion()
     {
-        if(botonFuncion == null)
+        if (botonFuncion == null)
         {
             botonFuncion = new JButton();
             botonFuncion.setName("botonFuncion");
@@ -267,7 +359,7 @@ public final class VentanaPrincipal extends Ventana
 
     public JTextField getCampoTextoNombreCategoria()
     {
-        if(campoTextoNombreCategoria == null)
+        if (campoTextoNombreCategoria == null)
         {
             campoTextoNombreCategoria = new JTextField();
             campoTextoNombreCategoria.setBounds(50, 80, 200, 30);
@@ -277,7 +369,7 @@ public final class VentanaPrincipal extends Ventana
 
     public JTextField getCampoTextoDescripcionCategoria()
     {
-        if(campoTextoDescripcionCategoria == null)
+        if (campoTextoDescripcionCategoria == null)
         {
             campoTextoDescripcionCategoria = new JTextField();
             campoTextoDescripcionCategoria.setBounds(50, 120, 200, 30);
@@ -287,7 +379,7 @@ public final class VentanaPrincipal extends Ventana
 
     public JButton getBotonIngresarCategoria()
     {
-        if(botonIngresarCategoria == null)
+        if (botonIngresarCategoria == null)
         {
             botonIngresarCategoria = new JButton();
             botonIngresarCategoria.setText("Ingresar Categoria");
@@ -297,6 +389,69 @@ public final class VentanaPrincipal extends Ventana
         }
         return botonIngresarCategoria;
     }
-    
-    
+
+    public JButton getBotonMostrarSeleccionRadioButtons()
+    {
+        if (botonMostrarSeleccionRadioButtons == null)
+        {
+            botonMostrarSeleccionRadioButtons = new JButton();
+            botonMostrarSeleccionRadioButtons.setText("Mostrar selección");
+            botonMostrarSeleccionRadioButtons.setName("botonMostrarSeleccionRadioButtons");
+            botonMostrarSeleccionRadioButtons.setActionCommand("botonMostrarSeleccionRadioButtons");
+            botonMostrarSeleccionRadioButtons.setBounds(50, 150, 200, 30);
+        }
+        return botonMostrarSeleccionRadioButtons;
+    }
+
+    public ButtonGroup getGrupoRadioButtons()
+    {
+        if (grupoRadioButtons == null)
+        {
+            grupoRadioButtons = new ButtonGroup();
+            grupoRadioButtons.add(getRadioButtonUno());
+            grupoRadioButtons.add(getRadioButtonDos());
+            grupoRadioButtons.add(getRadioButtonTres());
+        }
+        return grupoRadioButtons;
+    }
+
+    public JRadioButton getRadioButtonUno()
+    {
+        if (radioButtonUno == null)
+        {
+            radioButtonUno = new JRadioButton("Eleccion 1");
+            radioButtonUno.setName("radioButton");
+            radioButtonUno.setActionCommand("radioButton");
+            radioButtonUno.setBounds(50, 50, 200, 30);
+            radioButtonUno.setSelected(false);
+        }
+        return radioButtonUno;
+    }
+
+    public JRadioButton getRadioButtonDos()
+    {
+        if (radioButtonDos == null)
+        {
+            radioButtonDos = new JRadioButton("Eleccion 2");
+            radioButtonDos.setName("radioButton");
+            radioButtonDos.setActionCommand("radioButton");
+            radioButtonDos.setBounds(50, 80, 200, 30);
+            radioButtonDos.setSelected(false);
+        }
+        return radioButtonDos;
+    }
+
+    public JRadioButton getRadioButtonTres()
+    {
+        if (radioButtonTres == null)
+        {
+            radioButtonTres = new JRadioButton("Eleccion 3");
+            radioButtonTres.setName("radioButton");
+            radioButtonTres.setActionCommand("radioButton");
+            radioButtonTres.setBounds(50, 110, 200, 30);
+            radioButtonTres.setSelected(false);
+        }
+        return radioButtonTres;
+    }
+
 }

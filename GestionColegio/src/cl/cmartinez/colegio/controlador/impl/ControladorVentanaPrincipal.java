@@ -16,7 +16,12 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -24,7 +29,7 @@ import javax.swing.JComboBox;
  */
 public final class ControladorVentanaPrincipal extends Controlador implements ActionListener, KeyListener, ItemListener
 {
-    public ControladorVentanaPrincipal(VentanaPrincipal ventana, Modelo modelo)
+    public ControladorVentanaPrincipal(VentanaPrincipal ventana, ModeloVentanaPrincipal modelo)
     {
         super(ventana, modelo);
     }
@@ -35,6 +40,10 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
         getVentanaPrincipal().getBotonGuardar().addActionListener(this);
         getVentanaPrincipal().getBotonGuardarTodo().addActionListener(this);
         getVentanaPrincipal().getBotonIngresarCategoria().addActionListener(this);
+        getVentanaPrincipal().getRadioButtonUno().addActionListener(this);
+        getVentanaPrincipal().getRadioButtonDos().addActionListener(this);
+        getVentanaPrincipal().getRadioButtonTres().addActionListener(this);
+        getVentanaPrincipal().getBotonMostrarSeleccionRadioButtons().addActionListener(this);
         JComboBox<String> comboCategoria = getVentanaPrincipal().getComboCategoria();
         comboCategoria.addItemListener(this);
         cargarCategorias();
@@ -61,6 +70,40 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
            String descripcionCategoria = getVentanaPrincipal().getCampoTextoDescripcionCategoria().getText();
            getModeloVentanaPrincipal().ingresarCategoria(nombreCategoria, descripcionCategoria);
            cargarCategorias();
+       }
+       else if(comando.equals("radioButton"))
+       {
+           JRadioButton source = (JRadioButton)e.getSource();
+           getVentanaPrincipal().getRadioButtonUno().setSelected(false);
+           getVentanaPrincipal().getRadioButtonDos().setSelected(false);
+           getVentanaPrincipal().getRadioButtonTres().setSelected(false);
+           source.setSelected(true);
+       }
+       else if (comando.equals("botonMostrarSeleccionRadioButtons"))
+       {
+           Enumeration<AbstractButton> eab = getVentanaPrincipal().getGrupoRadioButtons().getElements();
+           AbstractButton ab = null;
+           while(eab.hasMoreElements())
+           {
+               ab = eab.nextElement();
+               if(ab.isSelected())
+               {
+                   break;
+               }
+           }
+           
+           String texto;
+           
+           if(ab == null)
+           {
+               texto = "No hay selección";
+           }
+           else
+           {
+               texto = "Selección: \"" + ab.getText() + "\"";
+           }
+           
+           JOptionPane.showMessageDialog(null, texto);
        }
     }
 

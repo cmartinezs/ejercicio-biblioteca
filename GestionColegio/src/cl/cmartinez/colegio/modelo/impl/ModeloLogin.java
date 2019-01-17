@@ -51,7 +51,7 @@ public class ModeloLogin implements Modelo
     {
         String sql = "SELECT nombre_usuario, password "
                 + "FROM usuario "
-                + "WHERE nombre_usuario = " + usernameConsulta + "";
+                + "WHERE nombre_usuario = '" + usernameConsulta + "'";
         
         try
         {
