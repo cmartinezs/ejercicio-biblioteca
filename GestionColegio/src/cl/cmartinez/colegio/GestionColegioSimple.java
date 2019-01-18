@@ -22,7 +22,7 @@ public class GestionColegioSimple
 {
     public static void main(String[] args)
     {
-        /*ControladorLogin cl = new ControladorLogin(new Login(), new ModeloLogin(null, null));
+        ControladorLogin cl = new ControladorLogin(new Login(), new ModeloLogin(null, null));
         cl.iniciarControlador();
         cl.getLogin().setVisible(true);
         
@@ -36,7 +36,7 @@ public class GestionColegioSimple
             {
                 Logger.getLogger(GestionColegioSimple.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }*/
+        }
         
         ControladorVentanaPrincipal cvp = new ControladorVentanaPrincipal(new VentanaPrincipal(), new ModeloVentanaPrincipal());
         cvp.iniciarControlador();

@@ -17,11 +17,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -47,6 +52,7 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
         JComboBox<String> comboCategoria = getVentanaPrincipal().getComboCategoria();
         comboCategoria.addItemListener(this);
         cargarCategorias();
+        cargarTabla();
     }
     
     public VentanaPrincipal getVentanaPrincipal()
@@ -140,6 +146,17 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
         for(String elemento: lista)
         {
             comboCategoria.addItem(elemento);
+        }
+    }
+
+    private void cargarTabla()
+    {
+        List<List<String>> listaInsumos = getModeloVentanaPrincipal().obtenerTablaInsumos();
+        DefaultTableModel model = (DefaultTableModel)getVentanaPrincipal().getTablaInsumos().getModel();
+        
+        for(List<String> fila: listaInsumos)
+        {
+            model.addRow(fila.toArray());
         }
     }
 }

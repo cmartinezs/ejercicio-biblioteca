@@ -7,6 +7,8 @@ package cl.cmartinez.colegio.modelo.impl;
 
 import cl.cmartinez.colegio.modelo.ConexionBD;
 import cl.cmartinez.colegio.modelo.Modelo;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -51,11 +53,18 @@ public class ModeloLogin implements Modelo
     {
         String sql = "SELECT nombre_usuario, password "
                 + "FROM usuario "
-                + "WHERE nombre_usuario = '" + usernameConsulta + "'";
+                + "WHERE nombre_usuario = ?";
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         
         try
         {
-            ResultSet rs = new ConexionBD().ejecutarConsulta(sql);
+            conn = new ConexionBD().crearConexion();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, usernameConsulta);
+            rs = ps.executeQuery();
             
             if(rs.next())
             {
@@ -72,7 +81,19 @@ public class ModeloLogin implements Modelo
         {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally
+        {
+            if(ps != null)
+            {
+                try { ps.close(); }
+                catch (SQLException ex) { }
+            }
+            
+            if(conn != null)
+            {
+                try { conn.close(); }
+                catch (SQLException ex) { }
+            }
+        }
     }
-
-
 }

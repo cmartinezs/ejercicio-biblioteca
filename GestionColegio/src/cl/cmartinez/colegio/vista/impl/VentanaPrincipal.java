@@ -10,6 +10,7 @@ import cl.cmartinez.colegio.vista.panels.BackgroundPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -30,9 +31,12 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneLayout;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -52,6 +56,8 @@ public final class VentanaPrincipal extends Ventana
     private JPanel panelTercero;
     private JPanel panelDentroDeScroll;
     private JScrollPane panelScroll;
+    private JScrollPane tablaInsumosScroll;
+    private JTable tablaInsumos;
     private JComboBox<String> comboCategoria;
 
     private JToolBar barraDeHerramientas;
@@ -163,7 +169,7 @@ public final class VentanaPrincipal extends Ventana
         }
         return panelTercero;
     }
-    
+
     public JScrollPane getPanelScroll()
     {
         if (panelScroll == null)
@@ -175,7 +181,7 @@ public final class VentanaPrincipal extends Ventana
         }
         return panelScroll;
     }
-    
+
     public JPanel getPanelDentroDeScroll()
     {
         if (panelDentroDeScroll == null)
@@ -188,12 +194,12 @@ public final class VentanaPrincipal extends Ventana
             //}
             //catch (IOException ex)
             //{
-                panelDentroDeScroll = new JPanel();
+            panelDentroDeScroll = new JPanel();
             //}
 
             panelDentroDeScroll.setLayout(new GridLayout());
             panelDentroDeScroll.setBounds(0, 0, 400, 2000);
-            
+
             JPanel pivote = new JPanel();
             pivote.setLayout(null);
             pivote.setBounds(0, 0, 400, 2000);
@@ -201,7 +207,7 @@ public final class VentanaPrincipal extends Ventana
             pivote.add(getRadioButtonDos());
             pivote.add(getRadioButtonTres());
             pivote.add(getBotonMostrarSeleccionRadioButtons());
-            
+
             panelDentroDeScroll.add(pivote);
         }
         return panelDentroDeScroll;
@@ -217,12 +223,13 @@ public final class VentanaPrincipal extends Ventana
             panelDePestanas.add(getPanelTercero(), 2);
             JPanel pivote = new JPanel();
             pivote.setLayout(null);
-            pivote.add(getPanelScroll());
+            pivote.add(getTablaInsumosScroll());
             panelDePestanas.add(pivote, 3);
             panelDePestanas.setName("panelDePestanas");
             panelDePestanas.setTitleAt(0, "Inicio");
             panelDePestanas.setTitleAt(1, "Segundo");
             panelDePestanas.setTitleAt(2, "Tercero");
+            panelDePestanas.setTitleAt(3, "Tabla Scroll");
             panelDePestanas.setIconAt(0, new ImageIcon("resources/imagenes/home_page.png"));
             panelDePestanas.setIconAt(1, new ImageIcon("resources/imagenes/user_green.png"));
             panelDePestanas.setIconAt(2, new ImageIcon("resources/imagenes/user_silhouette.png"));
@@ -452,6 +459,35 @@ public final class VentanaPrincipal extends Ventana
             radioButtonTres.setSelected(false);
         }
         return radioButtonTres;
+    }
+
+    public JTable getTablaInsumos()
+    {
+        if (tablaInsumos == null)
+        {
+            String[] columnNames =
+            {
+                "Id", "Código", "Nombre", "Descripción", "Id Categoria"
+            };
+            DefaultTableModel tablaModel = new DefaultTableModel();
+            tablaModel.setColumnIdentifiers(columnNames);
+            tablaInsumos = new JTable(tablaModel);
+            //tablaInsumos.setSize(600, 600);
+        }
+        return tablaInsumos;
+    }
+
+    public JScrollPane getTablaInsumosScroll()
+    {
+        if (tablaInsumosScroll == null)
+        {
+            tablaInsumosScroll = new JScrollPane(getTablaInsumos());
+            //tablaInsumosScroll.setBounds(0, 0, 700, 300);
+            tablaInsumosScroll.setLocation(0, 0);
+            tablaInsumosScroll.setSize(400, 300);
+            tablaInsumosScroll.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        }
+        return tablaInsumosScroll;
     }
 
 }
