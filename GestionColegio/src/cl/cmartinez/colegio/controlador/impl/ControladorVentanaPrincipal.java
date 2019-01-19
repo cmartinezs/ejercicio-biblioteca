@@ -6,7 +6,6 @@
 package cl.cmartinez.colegio.controlador.impl;
 
 import cl.cmartinez.colegio.controlador.Controlador;
-import cl.cmartinez.colegio.modelo.Modelo;
 import cl.cmartinez.colegio.modelo.impl.ModeloVentanaPrincipal;
 import cl.cmartinez.colegio.vista.impl.VentanaPrincipal;
 import java.awt.event.ActionEvent;
@@ -18,15 +17,12 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 import javax.swing.AbstractButton;
-import javax.swing.ButtonModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -34,6 +30,8 @@ import javax.swing.table.TableModel;
  */
 public final class ControladorVentanaPrincipal extends Controlador implements ActionListener, KeyListener, ItemListener
 {
+    
+    
     public ControladorVentanaPrincipal(VentanaPrincipal ventana, ModeloVentanaPrincipal modelo)
     {
         super(ventana, modelo);
@@ -53,6 +51,7 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
         comboCategoria.addItemListener(this);
         cargarCategorias();
         cargarTabla();
+        
     }
     
     public VentanaPrincipal getVentanaPrincipal()
@@ -151,12 +150,6 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
 
     private void cargarTabla()
     {
-        List<List<String>> listaInsumos = getModeloVentanaPrincipal().obtenerTablaInsumos();
-        DefaultTableModel model = (DefaultTableModel)getVentanaPrincipal().getTablaInsumos().getModel();
-        
-        for(List<String> fila: listaInsumos)
-        {
-            model.addRow(fila.toArray());
-        }
+        getVentanaPrincipal().setDataTablaInsumos(getModeloVentanaPrincipal().obtenerTablaInsumos());
     }
 }
