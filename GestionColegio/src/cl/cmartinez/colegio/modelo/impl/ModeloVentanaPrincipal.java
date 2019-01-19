@@ -5,19 +5,17 @@
  */
 package cl.cmartinez.colegio.modelo.impl;
 
-import cl.cmartinez.colegio.modelo.ConexionBD;
-import cl.cmartinez.colegio.modelo.Modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import cl.cmartinez.colegio.modelo.ConexionBD;
+import cl.cmartinez.colegio.modelo.Modelo;
 
 /**
  *
@@ -57,7 +55,6 @@ public class ModeloVentanaPrincipal implements Modelo
             ps.setString(1, nombreCategoria);
             ps.setString(2, descripcionCategoria);
             ps.executeUpdate();
-            ps.execute(sql);
         }
         catch (SQLException ex)
         {
