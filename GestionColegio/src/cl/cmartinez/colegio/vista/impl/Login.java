@@ -9,6 +9,9 @@ import cl.cmartinez.colegio.vista.Ventana;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -160,4 +163,23 @@ public final class Login extends Ventana
     {
         this.logueado = logueado;
     }
+
+	@Override
+	public void agregarKeyListener(KeyListener listener) 
+	{
+		getCajaTextoUsername().addKeyListener(listener);
+        getCajaTextoPassword().addKeyListener(listener);
+	}
+
+	@Override
+	public void agregarActionListener(ActionListener listener) 
+	{
+		getBotonIngresar().addActionListener(listener);
+	}
+
+	@Override
+	public void agregarItemListener(ItemListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
 }

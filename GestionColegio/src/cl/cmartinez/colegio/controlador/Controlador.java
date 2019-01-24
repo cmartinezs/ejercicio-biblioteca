@@ -5,6 +5,10 @@
  */
 package cl.cmartinez.colegio.controlador;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyListener;
+
 import cl.cmartinez.colegio.modelo.Modelo;
 import cl.cmartinez.colegio.vista.Ventana;
 
@@ -15,7 +19,7 @@ import cl.cmartinez.colegio.vista.Ventana;
  * @param <V> una ventana
  * @param <M> un modelo
  */
-public abstract class Controlador<V extends Ventana, M extends Modelo>
+public abstract class Controlador<V extends Ventana, M extends Modelo> implements ActionListener, KeyListener, ItemListener
 {
     private final V ventana;
     private final M modelo;
@@ -41,6 +45,9 @@ public abstract class Controlador<V extends Ventana, M extends Modelo>
     
     public void iniciarControlador()
     {
+    	getVentana().agregarKeyListener(this);
+        getVentana().agregarActionListener(this);
+        getVentana().agregarItemListener(this);
     	iniciar();
     	iniciado = true;
     }
@@ -49,5 +56,21 @@ public abstract class Controlador<V extends Ventana, M extends Modelo>
 
 	public boolean isIniciado() {
 		return iniciado;
+	}
+	
+	public void mostraVentana()
+	{
+		if (!ventana.isVisible()) 
+		{
+			ventana.setVisible(true);
+		}
+	}
+	
+	public void ocultarVentana()
+	{
+		if (ventana.isVisible()) 
+		{
+			ventana.setVisible(false);
+		}
 	}
 }

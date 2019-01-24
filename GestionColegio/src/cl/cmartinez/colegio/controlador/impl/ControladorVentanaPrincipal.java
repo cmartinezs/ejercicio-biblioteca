@@ -42,15 +42,6 @@ public final class ControladorVentanaPrincipal
     @Override
     public void iniciar()
     {
-        getVentana().getBotonGuardar().addActionListener(this);
-        getVentana().getBotonGuardarTodo().addActionListener(this);
-        getVentana().getPanelCentral().getPanelSegundo().getBotonIngresarCategoria().addActionListener(this);
-        getVentana().getPanelCentral().getPanelTercero().getRadioButtonUno().addActionListener(this);
-        getVentana().getPanelCentral().getPanelTercero().getRadioButtonDos().addActionListener(this);
-        getVentana().getPanelCentral().getPanelTercero().getRadioButtonTres().addActionListener(this);
-        getVentana().getPanelCentral().getPanelTercero().getBotonMostrarSeleccionRadioButtons().addActionListener(this);
-        JComboBox<String> comboCategoria = getVentana().getPanelCentral().getPanelSegundo().getComboCategoria();
-        comboCategoria.addItemListener(this);
         cargarCategorias();
         cargarTabla();
     }

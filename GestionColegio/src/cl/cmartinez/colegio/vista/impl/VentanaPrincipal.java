@@ -9,9 +9,13 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
@@ -192,4 +196,28 @@ public final class VentanaPrincipal extends Ventana
         }
         return botonFuncion;
     }
+
+	@Override
+	public void agregarKeyListener(KeyListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void agregarActionListener(ActionListener listener)
+	{
+		getBotonGuardar().addActionListener(listener);
+        getBotonGuardarTodo().addActionListener(listener);
+        getPanelCentral().getPanelSegundo().getBotonIngresarCategoria().addActionListener(listener);
+        getPanelCentral().getPanelTercero().getRadioButtonUno().addActionListener(listener);
+        getPanelCentral().getPanelTercero().getRadioButtonDos().addActionListener(listener);
+        getPanelCentral().getPanelTercero().getRadioButtonTres().addActionListener(listener);
+        getPanelCentral().getPanelTercero().getBotonMostrarSeleccionRadioButtons().addActionListener(listener);
+	}
+
+	@Override
+	public void agregarItemListener(ItemListener listener) 
+	{
+        getPanelCentral().getPanelSegundo().getComboCategoria().addItemListener(listener);
+	}
 }
