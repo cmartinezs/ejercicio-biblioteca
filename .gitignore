@@ -4,3 +4,7 @@
 **/test
 **/manifest.mf
 **/dist/
+**/libs/
+.settings
+.classpath
+.project

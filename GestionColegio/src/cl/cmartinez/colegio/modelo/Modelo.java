@@ -9,7 +9,7 @@ package cl.cmartinez.colegio.modelo;
  *
  * @author carlo
  */
-public interface Modelo
+public abstract class Modelo
 {
     
 }

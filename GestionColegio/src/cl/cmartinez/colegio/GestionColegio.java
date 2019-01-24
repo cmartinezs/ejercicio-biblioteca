@@ -5,13 +5,8 @@
  */
 package cl.cmartinez.colegio;
 
-import cl.cmartinez.colegio.controlador.impl.ControladorVentanaPrincipal;
-import cl.cmartinez.colegio.controlador.ControladorPrincipal;
 import cl.cmartinez.colegio.controlador.impl.ControladorLogin;
-import cl.cmartinez.colegio.modelo.impl.ModeloLogin;
-import cl.cmartinez.colegio.modelo.impl.ModeloVentanaPrincipal;
-import cl.cmartinez.colegio.vista.impl.Login;
-import cl.cmartinez.colegio.vista.impl.VentanaPrincipal;
+import cl.cmartinez.colegio.controlador.impl.ControladorVentanaPrincipal;
 
 /**
  *
@@ -26,11 +21,9 @@ public class GestionColegio
     public static void main(String[] args)
     {
         ControladorPrincipal cp = new ControladorPrincipal();
-        cp.agregarControlador("login", new ControladorLogin(new Login(), new ModeloLogin(null, null)));
-        cp.agregarControlador("principal", new ControladorVentanaPrincipal(new VentanaPrincipal(), new ModeloVentanaPrincipal()));
+        cp.agregarControlador("login", new ControladorLogin());
+        cp.agregarControlador("principal", new ControladorVentanaPrincipal());
         cp.iniciarControlador("login");
         cp.mostrarVentana("login");
-        cp.iniciarControlador("principal");
-        cp.mostrarVentana("principal");
     }
 }

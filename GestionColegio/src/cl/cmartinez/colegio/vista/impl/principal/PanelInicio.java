@@ -1,4 +1,4 @@
-package cl.cmartinez.colegio.vista.impl.principal;
+ package cl.cmartinez.colegio.vista.impl.principal;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,5 +22,4 @@ public class PanelInicio extends BackgroundPanel
 			e.printStackTrace();
 		}
 	}
-
 }

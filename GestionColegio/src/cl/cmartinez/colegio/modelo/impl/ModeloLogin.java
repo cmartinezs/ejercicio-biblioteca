@@ -18,16 +18,10 @@ import java.util.logging.Logger;
  *
  * @author carlo
  */
-public class ModeloLogin implements Modelo
+public class ModeloLogin extends Modelo
 {
-    private String username;
+    private String username;		
     private String password;
-
-    public ModeloLogin(String username, String password)
-    {
-        this.username = username;
-        this.password = password;
-    }
 
     public String getUsername()
     {

@@ -5,14 +5,13 @@
  */
 package cl.cmartinez.colegio;
 
-import cl.cmartinez.colegio.controlador.impl.ControladorLogin;
-import cl.cmartinez.colegio.controlador.impl.ControladorVentanaPrincipal;
-import cl.cmartinez.colegio.modelo.impl.ModeloLogin;
-import cl.cmartinez.colegio.modelo.impl.ModeloVentanaPrincipal;
-import cl.cmartinez.colegio.vista.impl.Login;
-import cl.cmartinez.colegio.vista.impl.VentanaPrincipal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import cl.cmartinez.colegio.controlador.impl.ControladorLogin;
+import cl.cmartinez.colegio.controlador.impl.ControladorVentanaPrincipal;
+import cl.cmartinez.colegio.modelo.impl.ModeloVentanaPrincipal;
+import cl.cmartinez.colegio.vista.impl.VentanaPrincipal;
 
 /**
  *
@@ -22,11 +21,11 @@ public class GestionColegioSimple
 {
     public static void main(String[] args)
     {
-        ControladorLogin cl = new ControladorLogin(new Login(), new ModeloLogin(null, null));
+        ControladorLogin cl = new ControladorLogin();
         cl.iniciarControlador();
-        cl.getLogin().setVisible(true);
+        cl.getVentana().setVisible(true);
         
-        while(cl.getLogin().isVisible())
+        while(cl.getVentana().isVisible())
         {
             try
             {
@@ -38,8 +37,8 @@ public class GestionColegioSimple
             }
         }
         
-        ControladorVentanaPrincipal cvp = new ControladorVentanaPrincipal(new VentanaPrincipal(), new ModeloVentanaPrincipal());
+        ControladorVentanaPrincipal cvp = new ControladorVentanaPrincipal();
         cvp.iniciarControlador();
-        cvp.getVentanaPrincipal().setVisible(true);
+        cvp.getVentana().setVisible(true);
     }
 }

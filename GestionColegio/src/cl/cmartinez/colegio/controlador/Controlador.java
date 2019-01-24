@@ -9,29 +9,45 @@ import cl.cmartinez.colegio.modelo.Modelo;
 import cl.cmartinez.colegio.vista.Ventana;
 
 /**
- *
+ * 
  * @author carlo
+ *
+ * @param <V> una ventana
+ * @param <M> un modelo
  */
-public abstract class Controlador
+public abstract class Controlador<V extends Ventana, M extends Modelo>
 {
-    private final Ventana ventana;
-    private final Modelo modelo;
+    private final V ventana;
+    private final M modelo;
     
-    public Controlador (Ventana ventana, Modelo modelo)
+    private boolean iniciado;
+    
+    public Controlador (V ventana, M modelo)
     {
         this.ventana = ventana;
         this.modelo = modelo;
+        iniciado = false;
     }
 
-    public Ventana getVentana()
+    public V getVentana()
     {
         return ventana;
     }
 
-    public Modelo getModelo()
+    public M getModelo()
     {
         return modelo;
     }
     
-    public abstract void iniciarControlador();
+    public void iniciarControlador()
+    {
+    	iniciar();
+    	iniciado = true;
+    }
+    
+    protected abstract void iniciar();
+
+	public boolean isIniciado() {
+		return iniciado;
+	}
 }

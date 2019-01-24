@@ -44,7 +44,7 @@ public final class Login extends Ventana
     public Login ()
     {
         super("Login");
-        setSize(ANCHO_JFRAME, ALTO_JFRAME);
+        setSize(350, 214);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Container cp = getContentPane();
         cp.setLayout(null);
@@ -53,6 +53,11 @@ public final class Login extends Ventana
         cp.add(getCajaTextoUsername());
         cp.add(getCajaTextoPassword());
         cp.add(getBotonIngresar());
+        
+        JLabel lblImagen = new JLabel("");
+        lblImagen.setIcon(new ImageIcon("resources/imagenes/user_silhouette.png"));
+        lblImagen.setBounds(120, 11, 32, 44);
+        getContentPane().add(lblImagen);
         
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -64,8 +69,8 @@ public final class Login extends Ventana
         {
             etiquetaUsername = new JLabel("Usuario");
             etiquetaUsername.setBounds(
-                    SEPARACION_HORIZONTAL
-                    , SEPARACION_VERTICAL
+                    29
+                    , 66
                     , ANCHO_COMPONENTES
                     , ALTO_COMPONENTES
             );
@@ -79,8 +84,8 @@ public final class Login extends Ventana
         {
             etiquetaPassword = new JLabel("Password");
             etiquetaPassword.setBounds(
-                    SEPARACION_HORIZONTAL
-                    , ALTO_COMPONENTES + SEPARACION_VERTICAL*2
+                    29
+                    , 101
                     , ANCHO_COMPONENTES
                     , ALTO_COMPONENTES);
         }
@@ -95,8 +100,8 @@ public final class Login extends Ventana
             cajaTextoUsername.setName("cajaTextoUsername");
             cajaTextoUsername.setActionCommand("cajaTextoUsername");
             cajaTextoUsername.setBounds(
-                    ANCHO_COMPONENTES + SEPARACION_HORIZONTAL*2
-                    , SEPARACION_VERTICAL
+                    119
+                    , 66
                     , ANCHO_COMPONENTES * 3
                     , ALTO_COMPONENTES);
         }
@@ -111,8 +116,8 @@ public final class Login extends Ventana
             cajaTextoPassword.setName("cajaTextoPassword");
             cajaTextoPassword.setActionCommand("cajaTextoPassword");
             cajaTextoPassword.setBounds(
-                    ANCHO_COMPONENTES + SEPARACION_HORIZONTAL*2
-                    , ALTO_COMPONENTES + SEPARACION_VERTICAL*2
+                    119
+                    , 101
                     , ANCHO_COMPONENTES * 3
                     , ALTO_COMPONENTES
             );
@@ -138,8 +143,8 @@ public final class Login extends Ventana
             botonIngresar.setText("Ingresar");
             botonIngresar.setEnabled(false);
             botonIngresar.setBounds(
-                    ANCHO_COMPONENTES + SEPARACION_HORIZONTAL*2
-                    , ALTO_COMPONENTES*2 + SEPARACION_VERTICAL*3
+                    119
+                    , 136
                     , ANCHO_COMPONENTES * 3
                     , ALTO_COMPONENTES);
         }

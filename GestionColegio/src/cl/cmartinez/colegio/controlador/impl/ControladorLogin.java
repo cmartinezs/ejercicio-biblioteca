@@ -18,29 +18,19 @@ import javax.swing.JOptionPane;
  *
  * @author carlo
  */
-public class ControladorLogin extends Controlador implements ActionListener, KeyListener
+public class ControladorLogin extends Controlador<Login, ModeloLogin> implements ActionListener, KeyListener
 {
-    public ControladorLogin(Login ventana, ModeloLogin modelo)
+    public ControladorLogin()
     {
-        super(ventana, modelo);
-    }
-    
-    public Login getLogin()
-    {
-        return (Login)getVentana();
-    }
-    
-    public ModeloLogin getModeloLogin()
-    {
-        return (ModeloLogin)getModelo();
+        super(new Login(), new ModeloLogin());
     }
     
     @Override
-    public void iniciarControlador()
+    public void iniciar()
     {
-        getLogin().getCajaTextoUsername().addKeyListener(this);
-        getLogin().getCajaTextoPassword().addKeyListener(this);
-        getLogin().getBotonIngresar().addActionListener(this);
+        getVentana().getCajaTextoUsername().addKeyListener(this);
+        getVentana().getCajaTextoPassword().addKeyListener(this);
+        getVentana().getBotonIngresar().addActionListener(this);
     }
 
     @Override
@@ -57,14 +47,13 @@ public class ControladorLogin extends Controlador implements ActionListener, Key
 
     private void validarLogin() 
     {
-        String username = getLogin().getCajaTextoUsername().getText();
-        char[] password = getLogin().getCajaTextoPassword().getPassword();
+        String username = getVentana().getCajaTextoUsername().getText();
+        char[] password = getVentana().getCajaTextoPassword().getPassword();
         
-        ModeloLogin modeloLogin = getModeloLogin();
+        ModeloLogin modeloLogin = getModelo();
         modeloLogin.obtenerUsuario(username);
         
-        if(username == null || username.trim().isEmpty()
-                || password == null || password.length <= 3 || username.trim().length() <= 3)
+        if(valoresVacios(username, String.valueOf(password)))
         {
             JOptionPane.showMessageDialog(null, "Debe ingresar un usuario y contraseña válido", "Error de Login", JOptionPane.ERROR_MESSAGE);
         }
@@ -78,32 +67,30 @@ public class ControladorLogin extends Controlador implements ActionListener, Key
         }
         else
         {
-            getLogin().setLogueado(true);
-            getLogin().setVisible(false);
+        	getVentana().setLogueado(true);
+        	getVentana().setVisible(false);
         }
     }
+    
     @Override
     public void keyTyped(KeyEvent e)
     {
-        System.out.println("keyTyped: " + e.getKeyChar());
-        String username = getLogin().getCajaTextoUsername().getText();
-        char[] password = getLogin().getCajaTextoPassword().getPassword();
+        String username = getVentana().getCajaTextoUsername().getText();
+        char[] password = getVentana().getCajaTextoPassword().getPassword();
         
-        System.out.println("username: " + username);
-        System.out.println("password: " + String.valueOf(password));
-        
-        if(username != null && !username.trim().isEmpty()
-                && password != null && password.length > 3 && username.trim().length() > 3)
-        {
-            getLogin().getBotonIngresar().setEnabled(true);
-        }
-        else
-        {
-            getLogin().getBotonIngresar().setEnabled(false);
-        }
+        getVentana().getBotonIngresar().setEnabled(!valoresVacios(username, String.valueOf(password)));
+
     }
 
-    @Override
+    private boolean valoresVacios(String username, String password) 
+    {
+    	boolean usuarioVacio = username == null || username.trim().isEmpty();
+        boolean passwordVacia = password == null || password.trim().isEmpty();
+        
+    	return usuarioVacio || passwordVacia || password.trim().length() <= 3 || username.trim().length() <= 3;
+	}
+
+	@Override
     public void keyPressed(KeyEvent e)
     {
         //Nada

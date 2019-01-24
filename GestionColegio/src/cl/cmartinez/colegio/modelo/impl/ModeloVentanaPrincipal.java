@@ -14,16 +14,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.hibernate.Session;
+
 import cl.cmartinez.colegio.modelo.ConexionBD;
+import cl.cmartinez.colegio.modelo.HibernateUtil;
 import cl.cmartinez.colegio.modelo.Modelo;
+import cl.cmartinez.colegio.modelo.entidades.Categoria;
 
 /**
  *
  * @author carlo
  */
-public class ModeloVentanaPrincipal implements Modelo
+public class ModeloVentanaPrincipal extends Modelo
 {
-
     public ArrayList<String> obtenerElementosComboCategoria()
     {
         ArrayList<String> lista = new ArrayList();
@@ -42,6 +45,32 @@ public class ModeloVentanaPrincipal implements Modelo
         }
         return lista;
     }
+    
+    @SuppressWarnings("unchecked")
+	public List<Categoria> obtenerTodasLasCategorias()
+	{
+    	Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        List<Categoria> result = session.createQuery("from Categoria").getResultList();
+
+        session.getTransaction().commit();
+        session.close();
+        
+        return result;
+	}
+    
+    public void ingresarCategoria(Categoria categoria)
+    {
+    	Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        session.saveOrUpdate(categoria);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
 
     public void ingresarCategoria(String nombreCategoria, String descripcionCategoria)
     {
@@ -110,5 +139,4 @@ public class ModeloVentanaPrincipal implements Modelo
         }
         return lista;
     }
-    
 }

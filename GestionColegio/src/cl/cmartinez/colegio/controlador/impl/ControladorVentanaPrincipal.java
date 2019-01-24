@@ -11,8 +11,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JComboBox;
@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 import cl.cmartinez.colegio.controlador.Controlador;
+import cl.cmartinez.colegio.modelo.entidades.Categoria;
 import cl.cmartinez.colegio.modelo.impl.ModeloVentanaPrincipal;
 import cl.cmartinez.colegio.vista.impl.VentanaPrincipal;
 
@@ -27,40 +28,31 @@ import cl.cmartinez.colegio.vista.impl.VentanaPrincipal;
  *
  * @author carlo
  */
-public final class ControladorVentanaPrincipal extends Controlador implements ActionListener, KeyListener, ItemListener
+public final class ControladorVentanaPrincipal 
+	extends Controlador<VentanaPrincipal, ModeloVentanaPrincipal> 
+	implements ActionListener, KeyListener, ItemListener
 {
     
     
-    public ControladorVentanaPrincipal(VentanaPrincipal ventana, ModeloVentanaPrincipal modelo)
+    public ControladorVentanaPrincipal()
     {
-        super(ventana, modelo);
+        super(new VentanaPrincipal(), new ModeloVentanaPrincipal());
     }
     
     @Override
-    public void iniciarControlador()
+    public void iniciar()
     {
-        getVentanaPrincipal().getBotonGuardar().addActionListener(this);
-        getVentanaPrincipal().getBotonGuardarTodo().addActionListener(this);
-        getVentanaPrincipal().getPanelCentral().getPanelSegundo().getBotonIngresarCategoria().addActionListener(this);
-        getVentanaPrincipal().getPanelCentral().getPanelTercero().getRadioButtonUno().addActionListener(this);
-        getVentanaPrincipal().getPanelCentral().getPanelTercero().getRadioButtonDos().addActionListener(this);
-        getVentanaPrincipal().getPanelCentral().getPanelTercero().getRadioButtonTres().addActionListener(this);
-        getVentanaPrincipal().getPanelCentral().getPanelTercero().getBotonMostrarSeleccionRadioButtons().addActionListener(this);
-        JComboBox<String> comboCategoria = getVentanaPrincipal().getPanelCentral().getPanelSegundo().getComboCategoria();
+        getVentana().getBotonGuardar().addActionListener(this);
+        getVentana().getBotonGuardarTodo().addActionListener(this);
+        getVentana().getPanelCentral().getPanelSegundo().getBotonIngresarCategoria().addActionListener(this);
+        getVentana().getPanelCentral().getPanelTercero().getRadioButtonUno().addActionListener(this);
+        getVentana().getPanelCentral().getPanelTercero().getRadioButtonDos().addActionListener(this);
+        getVentana().getPanelCentral().getPanelTercero().getRadioButtonTres().addActionListener(this);
+        getVentana().getPanelCentral().getPanelTercero().getBotonMostrarSeleccionRadioButtons().addActionListener(this);
+        JComboBox<String> comboCategoria = getVentana().getPanelCentral().getPanelSegundo().getComboCategoria();
         comboCategoria.addItemListener(this);
         cargarCategorias();
         cargarTabla();
-        
-    }
-    
-    public VentanaPrincipal getVentanaPrincipal()
-    {
-        return (VentanaPrincipal) getVentana();
-    }
-    
-    public ModeloVentanaPrincipal getModeloVentanaPrincipal()
-    {
-        return (ModeloVentanaPrincipal) getModelo();
     }
 
     @Override
@@ -70,22 +62,26 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
        
        if(comando.equals("botonIngresarCategoria"))
        {
-           String nombreCategoria = getVentanaPrincipal().getPanelCentral().getPanelSegundo().getCampoTextoNombreCategoria().getText();
-           String descripcionCategoria = getVentanaPrincipal().getPanelCentral().getPanelSegundo().getCampoTextoDescripcionCategoria().getText();
-           getModeloVentanaPrincipal().ingresarCategoria(nombreCategoria, descripcionCategoria);
+           String nombreCategoria = getVentana().getPanelCentral().getPanelSegundo().getCampoTextoNombreCategoria().getText();
+           String descripcionCategoria = getVentana().getPanelCentral().getPanelSegundo().getCampoTextoDescripcionCategoria().getText();
+           //getModelo().ingresarCategoria(nombreCategoria, descripcionCategoria);
+           Categoria categoria = new Categoria();
+           categoria.setNombre(nombreCategoria);
+           categoria.setDescripcion(descripcionCategoria);
+           getModelo().ingresarCategoria(categoria);
            cargarCategorias();
        }
        else if(comando.equals("radioButton"))
        {
            JRadioButton source = (JRadioButton)e.getSource();
-           getVentanaPrincipal().getPanelCentral().getPanelTercero().getRadioButtonUno().setSelected(false);
-           getVentanaPrincipal().getPanelCentral().getPanelTercero().getRadioButtonDos().setSelected(false);
-           getVentanaPrincipal().getPanelCentral().getPanelTercero().getRadioButtonTres().setSelected(false);
+           getVentana().getPanelCentral().getPanelTercero().getRadioButtonUno().setSelected(false);
+           getVentana().getPanelCentral().getPanelTercero().getRadioButtonDos().setSelected(false);
+           getVentana().getPanelCentral().getPanelTercero().getRadioButtonTres().setSelected(false);
            source.setSelected(true);
        }
        else if (comando.equals("botonMostrarSeleccionRadioButtons"))
        {
-           Enumeration<AbstractButton> eab = getVentanaPrincipal().getPanelCentral().getPanelTercero().getGrupoRadioButtons().getElements();
+           Enumeration<AbstractButton> eab = getVentana().getPanelCentral().getPanelTercero().getGrupoRadioButtons().getElements();
            AbstractButton ab = null;
            while(eab.hasMoreElements())
            {
@@ -132,23 +128,24 @@ public final class ControladorVentanaPrincipal extends Controlador implements Ac
     @Override
     public void itemStateChanged(ItemEvent e)
     {
-        JComboBox c = (JComboBox)e.getSource();
+        JComboBox<String> c = (JComboBox)e.getSource();
         String nombre = c.getName();
     }
 
     private void cargarCategorias()
     {
-        JComboBox<String> comboCategoria = getVentanaPrincipal().getPanelCentral().getPanelSegundo().getComboCategoria();
+        JComboBox<String> comboCategoria = getVentana().getPanelCentral().getPanelSegundo().getComboCategoria();
         comboCategoria.removeAllItems();
-        ArrayList<String> lista = getModeloVentanaPrincipal().obtenerElementosComboCategoria();
-        for(String elemento: lista)
+        //ArrayList<String> lista = getModeloVentanaPrincipal().obtenerElementosComboCategoria();
+        List<Categoria> lista = getModelo().obtenerTodasLasCategorias();
+        for(Categoria elemento: lista)
         {
-            comboCategoria.addItem(elemento);
+            comboCategoria.addItem(elemento.getNombre());
         }
     }
 
     private void cargarTabla()
     {
-        getVentanaPrincipal().getPanelCentral().getPanelCuarto().setDataTablaInsumos(getModeloVentanaPrincipal().obtenerTablaInsumos());
+    	getVentana().getPanelCentral().getPanelCuarto().setDataTablaInsumos(getModelo().obtenerTablaInsumos());
     }
 }
