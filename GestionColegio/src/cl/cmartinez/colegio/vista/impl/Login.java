@@ -5,7 +5,6 @@
  */
 package cl.cmartinez.colegio.vista.impl;
 
-import cl.cmartinez.colegio.vista.Ventana;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -14,12 +13,14 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import cl.cmartinez.colegio.vista.Ventana;
 
 /**
  *
@@ -32,6 +33,8 @@ public final class Login extends Ventana
     private JButton botonIngresar;
     private JLabel etiquetaUsername;
     private JLabel etiquetaPassword;
+    private JLabel lblImagen;
+    private JLabel lblImagenG;
     
     private final int ANCHO_COMPONENTES = 60;
     private final int ALTO_COMPONENTES = 25;
@@ -56,15 +59,37 @@ public final class Login extends Ventana
         cp.add(getCajaTextoUsername());
         cp.add(getCajaTextoPassword());
         cp.add(getBotonIngresar());
-        
-        JLabel lblImagen = new JLabel("");
-        lblImagen.setIcon(new ImageIcon("resources/imagenes/user_silhouette.png"));
-        lblImagen.setBounds(120, 11, 32, 44);
-        getContentPane().add(lblImagen);
+        cp.add(getIconoUsuario());
+        cp.add(getIconoUsuarioG());
         
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
+
+	public JLabel getIconoUsuario() 
+	{
+		if(lblImagen == null)
+		{
+			String imagen = "resources/imagenes/user_silhouette.png"; 
+			lblImagen = new JLabel("");
+	        lblImagen.setIcon(new ImageIcon(imagen));
+	        lblImagen.setBounds(120, 11, 32, 44);
+		}
+        return lblImagen;
+	}
+	
+	public JLabel getIconoUsuarioG() 
+	{
+		if(lblImagenG == null)
+		{
+			String imagen = "resources/imagenes/user_green.png"; 
+			lblImagenG = new JLabel("");
+			lblImagenG.setIcon(new ImageIcon(imagen));
+			lblImagenG.setBounds(120, 11, 32, 44);
+			lblImagenG.setVisible(false);
+		}
+        return lblImagenG;
+	}
 
     public JLabel getEtiquetaUsername() 
     {
@@ -141,6 +166,7 @@ public final class Login extends Ventana
             {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
             botonIngresar.setName("botonIngresar");
             botonIngresar.setActionCommand("botonIngresar");
             botonIngresar.setText("Ingresar");
@@ -178,8 +204,11 @@ public final class Login extends Ventana
 	}
 
 	@Override
-	public void agregarItemListener(ItemListener listener) {
-		// TODO Auto-generated method stub
-		
+	public void agregarItemListener(ItemListener listener) { }
+
+	public void getCambiarIconoUsuario(boolean b) 
+	{
+		getIconoUsuario().setVisible(!b);
+		getIconoUsuarioG().setVisible(b);
 	}
 }

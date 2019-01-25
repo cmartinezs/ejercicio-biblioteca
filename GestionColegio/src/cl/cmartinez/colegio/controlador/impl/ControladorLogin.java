@@ -5,13 +5,15 @@
  */
 package cl.cmartinez.colegio.controlador.impl;
 
-import cl.cmartinez.colegio.controlador.Controlador;
-import cl.cmartinez.colegio.modelo.impl.ModeloLogin;
-import cl.cmartinez.colegio.vista.impl.Login;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JOptionPane;
+
+import cl.cmartinez.colegio.controlador.Controlador;
+import cl.cmartinez.colegio.modelo.impl.ModeloLogin;
+import cl.cmartinez.colegio.vista.impl.Login;
 
 /**
  *
@@ -36,7 +38,14 @@ public class ControladorLogin extends Controlador<Login, ModeloLogin>
         String username = getVentana().getCajaTextoUsername().getText();
         char[] password = getVentana().getCajaTextoPassword().getPassword();
         
-        getVentana().getBotonIngresar().setEnabled(!valoresVacios(username, String.valueOf(password)));
+        boolean vacios = valoresVacios(username, String.valueOf(password));
+        
+        getVentana().getBotonIngresar().setEnabled(!vacios);
+        
+        if (e.getSource().equals(getVentana().getCajaTextoUsername())) 
+        {
+        	getVentana().getCambiarIconoUsuario(username != null && username.trim().length() > 3);
+		} 
 
     }
 
