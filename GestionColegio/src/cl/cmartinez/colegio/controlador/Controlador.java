@@ -19,7 +19,8 @@ import cl.cmartinez.colegio.vista.Ventana;
  * @param <V> una ventana
  * @param <M> un modelo
  */
-public abstract class Controlador<V extends Ventana, M extends Modelo> implements ActionListener, KeyListener, ItemListener
+public abstract class Controlador<V extends Ventana, M extends Modelo> 
+implements ActionListener, KeyListener, ItemListener
 {
     private final V ventana;
     private final M modelo;
