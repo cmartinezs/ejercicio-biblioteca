@@ -2,6 +2,7 @@ package cl.martinez.modulo6.mvc.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -47,5 +48,33 @@ public class ControladorLogin extends ControladorAbstracto implements ActionList
 		{
 			JOptionPane.showMessageDialog(null, "Login válido", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 		}
+	}
+	
+	public void ejemploLambdaExpresions()
+	{
+		List<String> usuarios = new ArrayList<>();
+		usuarios.add("Carlos");
+		usuarios.add("Pepe");
+		usuarios.add("Juanito");
+		
+		//for-each
+		usuarios.forEach(
+				usuario -> System.out.println("usuario=" + usuario)
+		);
+		
+		//filter a mano
+		List<String> usuariosCarlos = new ArrayList<String>();
+		for(String usuario: usuarios)
+		{
+			if("Carlos".equals(usuario))
+			{
+				usuariosCarlos.add(usuario);
+			}
+		}
+		
+		usuariosCarlos.get(0);
+		
+		//filer lambda expression
+		usuarios.stream().filter(usuario -> "Carlos".equals(usuario)).findFirst();
 	}
 }
