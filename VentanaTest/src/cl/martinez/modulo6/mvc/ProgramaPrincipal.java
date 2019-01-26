@@ -1,7 +1,6 @@
 package cl.martinez.modulo6.mvc;
 
 import cl.martinez.modulo6.mvc.controlador.ControladorLogin;
-import cl.martinez.modulo6.mvc.ventana.Login;
 
 public class ProgramaPrincipal 
 {

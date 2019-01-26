@@ -5,12 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Login extends VentanaAbstracta 
 {
-	private JTextField username;
+	private JComboBox<String> username;
 	private JPasswordField password;
 	private JButton ingresar;
 	
@@ -26,11 +27,11 @@ public class Login extends VentanaAbstracta
 		cp.add(getIngresar()); //ingresar
 	}
 
-	public JTextField getUsername() 
+	public JComboBox<String> getUsername() 
 	{
 		if(username == null)
 		{
-			username = new JTextField();
+			username = new JComboBox<String>();
 			username.setSize(100, 30);
 			username.setLocation(20, 20);
 			username.setName("username");
