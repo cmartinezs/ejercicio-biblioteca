@@ -1,4 +1,4 @@
-package cl.martinez.modulo6.mvc.controlador;
+package cl.cmartinez.modulo6.mvc.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +8,8 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-import cl.martinez.modulo6.mvc.model.ModeloLogin;
-import cl.martinez.modulo6.mvc.ventana.Login;
+import cl.cmartinez.modulo6.mvc.model.ModeloLogin;
+import cl.cmartinez.modulo6.mvc.ventana.Login;
 
 public class ControladorLogin extends ControladorAbstracto implements ActionListener
 {

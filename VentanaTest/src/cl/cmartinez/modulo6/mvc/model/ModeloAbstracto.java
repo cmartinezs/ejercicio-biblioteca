@@ -1,4 +1,4 @@
-package cl.martinez.modulo6.mvc.model;
+package cl.cmartinez.modulo6.mvc.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

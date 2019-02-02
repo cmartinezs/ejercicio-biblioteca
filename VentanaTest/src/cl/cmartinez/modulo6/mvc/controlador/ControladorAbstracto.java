@@ -1,7 +1,7 @@
-package cl.martinez.modulo6.mvc.controlador;
+package cl.cmartinez.modulo6.mvc.controlador;
 
-import cl.martinez.modulo6.mvc.model.ModeloAbstracto;
-import cl.martinez.modulo6.mvc.ventana.VentanaAbstracta;
+import cl.cmartinez.modulo6.mvc.model.ModeloAbstracto;
+import cl.cmartinez.modulo6.mvc.ventana.VentanaAbstracta;
 
 public abstract class ControladorAbstracto 
 {
