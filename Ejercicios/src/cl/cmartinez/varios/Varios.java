@@ -5,9 +5,10 @@
  */
 package cl.cmartinez.varios;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  *
@@ -42,7 +43,7 @@ public class Varios
             System.out.println("Hola mundo: i = " + i);
         }*/
     	
-    	boolean keepGoing = true;
+    	/*boolean keepGoing = true;
     	
     	int count = 0;
     	
@@ -60,6 +61,41 @@ public class Varios
     		}
     	}
     	
-    	System.out.println(x);
+    	System.out.println(x);*/
+    	
+    	List<String> listaStrings = Arrays.asList("Hola", "HolaMundo", "Lista", "HStrings");
+
+    	for(int i = 0; i < listaStrings.size(); i++)
+    	{
+    		System.out.println("Elemento " + i + ": " + listaStrings.get(i));
+    	}
+    	int i = 0;
+    	for(String elemento: listaStrings)
+    	{
+    		System.out.println("Elemento " + i + ": " + elemento);
+    		i++;
+    	}
+    	
+    	listaStrings.forEach(new Consumer<String>() {
+
+			@Override
+			public void accept(String t) {
+				System.out.println("Elemento: " + t);
+			}
+		});
+    	
+    	listaStrings.forEach(t -> System.out.println("Elemento: " + t));
+    	
+    	Optional<String> optional = listaStrings.stream().filter(t -> t.startsWith("H")).findFirst();
+    	if(optional.isPresent())
+    	{
+    		System.out.println("Hay un primer elemento");
+    	}
+    	else
+    	{
+    		System.out.println("No hay un primer elemento");
+    	}
+    	
+    	optional.ifPresent(t -> System.out.println("Elemento encontrado: " + t));
     }
 }
