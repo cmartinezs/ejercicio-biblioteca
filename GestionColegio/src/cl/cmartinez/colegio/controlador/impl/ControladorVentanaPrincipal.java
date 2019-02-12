@@ -97,6 +97,16 @@ public final class ControladorVentanaPrincipal
            
            JOptionPane.showMessageDialog(null, texto);
        }
+       else if(comando.equals("botonGuardar"))
+       {
+    	   //Integer id = Integer.parseInt(getVentana().getPanelCentral().getPanelCuarto().getCampoIdInsumo().getText());
+    	   String codigo = getVentana().getPanelCentral().getPanelCuarto().getCampoCodigoInsumo().getText();
+    	   String nombre = getVentana().getPanelCentral().getPanelCuarto().getCampoNombreInsumo().getText();
+    	   String descripcion = getVentana().getPanelCentral().getPanelCuarto().getCampoDescripcionInsumo().getText();
+    	   Integer idCategoria = Integer.parseInt(getVentana().getPanelCentral().getPanelCuarto().getCampoIdCategoriaInsumo().getText());
+    	   getModelo().guardarInsumo(codigo, nombre, descripcion, idCategoria);
+    	   cargarTabla();
+       }
     }
 
     @Override

@@ -113,7 +113,7 @@ public class ModeloVentanaPrincipal extends Modelo
 
     public List<List<String>> obtenerTablaInsumos()
     {
-        List<List<String>> lista = new ArrayList();
+        List<List<String>> lista = new ArrayList<>();
         
         String sql = "SELECT * FROM insumo";
         
@@ -123,7 +123,7 @@ public class ModeloVentanaPrincipal extends Modelo
             
             while(rs.next())
             {
-                List<String> fila = new ArrayList();
+                List<String> fila = new ArrayList<>();
                 fila.add(rs.getString("id"));
                 fila.add(rs.getString("codigo"));
                 fila.add(rs.getString("nombre"));
@@ -139,4 +139,24 @@ public class ModeloVentanaPrincipal extends Modelo
         }
         return lista;
     }
+
+	public void guardarInsumo(String codigo, String nombre, String descripcion, Integer idCategoria) 
+	{
+		String sql = "INSERT INTO insumo (codigo, nombre, descripcion, id_categoria) VALUES (?, ?, ?, ?)";
+		
+		try
+        {
+           Connection conn = new ConexionBD().crearConexion();
+           PreparedStatement ps = conn.prepareStatement(sql);
+           ps.setString(1, codigo);
+           ps.setString(2, nombre);
+           ps.setString(3, descripcion);
+           ps.setInt(4, idCategoria);
+           ps.executeUpdate();
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(ModeloVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	}
 }

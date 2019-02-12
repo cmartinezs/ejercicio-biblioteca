@@ -1,12 +1,11 @@
 package cl.cmartinez.colegio.vista.impl.principal;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -14,9 +13,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import cl.cmartinez.colegio.vista.panels.BackgroundPanel;
-
-public class PanelCuarto extends BackgroundPanel
+public class PanelCuarto extends JPanel
 {
     private JTable tablaInsumos;
     private JScrollPane tablaInsumosScroll;
@@ -26,28 +23,20 @@ public class PanelCuarto extends BackgroundPanel
     private JTextField campoNombreInsumo;
     private JTextField campoDescripcionInsumo;
     private JTextField campoIdCategoriaInsumo;
+    private JButton botonGuardar;
     
     List<List<String>> listaInsumos;
 	
 	public PanelCuarto() 
 	{
 		setLayout(null);
-		
-		try 
-		{
-			setImage(ImageIO.read(new File("resources/imagenes/bg/wp2224998.jpg")));
-		} 
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		add(getTablaInsumosScroll());
 		add(getCampoIdInsumo());
 		add(getCampoCodigoInsumo());
 		add(getCampoNombreInsumo());
 		add(getCampoDescripcionInsumo());
 		add(getCampoIdCategoriaInsumo());
+		add(getBotonGuardar());
 	}
 	
 	public JTable getTablaInsumos()
@@ -140,11 +129,26 @@ public class PanelCuarto extends BackgroundPanel
         return campoIdCategoriaInsumo;
     }
 
-    public void setDataTablaInsumos(List<List<String>> tablaInsumos)
+    public JButton getBotonGuardar() 
+    {
+    	if(botonGuardar == null)
+    	{
+    		botonGuardar = new JButton("Guardar");
+    		botonGuardar.setBounds(500, 120, 200, 30);
+    		botonGuardar.setActionCommand("botonGuardar");
+    	}
+		return botonGuardar;
+	}
+
+	public void setDataTablaInsumos(List<List<String>> tablaInsumos)
     {
         listaInsumos = tablaInsumos;
         
         DefaultTableModel model = (DefaultTableModel)getTablaInsumos().getModel();
+        while(model.getRowCount() > 0)
+        {
+        	model.removeRow(0);
+        }
         
         for(List<String> fila: listaInsumos)
         {

@@ -213,6 +213,7 @@ public final class VentanaPrincipal extends Ventana
         getPanelCentral().getPanelTercero().getRadioButtonDos().addActionListener(listener);
         getPanelCentral().getPanelTercero().getRadioButtonTres().addActionListener(listener);
         getPanelCentral().getPanelTercero().getBotonMostrarSeleccionRadioButtons().addActionListener(listener);
+        getPanelCentral().getPanelCuarto().getBotonGuardar().addActionListener(listener);
 	}
 
 	@Override
