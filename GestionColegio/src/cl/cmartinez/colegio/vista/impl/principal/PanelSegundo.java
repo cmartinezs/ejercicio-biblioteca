@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import cl.cmartinez.colegio.vista.panels.BackgroundPanel;
@@ -16,7 +17,7 @@ public class PanelSegundo extends BackgroundPanel
     private JTextField campoTextoNombreCategoria;
     private JTextField campoTextoDescripcionCategoria;
     private JButton botonIngresarCategoria;
-    private JComboBox<String> comboCategoria;
+    private JComboBox<ItemComboBox> comboCategoria;
     
 	public PanelSegundo() 
 	{
@@ -35,6 +36,14 @@ public class PanelSegundo extends BackgroundPanel
         add(getCampoTextoDescripcionCategoria());
         add(getBotonIngresarCategoria());
         add(getComboCategoria());
+        
+        JButton btnQueCategoriaTengo = new JButton("Que categoria tengo?");
+        btnQueCategoriaTengo.setBounds(300, 124, 183, 23);
+        btnQueCategoriaTengo.addActionListener(e -> {
+        	ItemComboBox itemS = (ItemComboBox)getComboCategoria().getSelectedItem();
+        	JOptionPane.showMessageDialog(null, "Categoria seleccionada: " + itemS + ", ID = " + itemS.getValor(), "Categoria", JOptionPane.INFORMATION_MESSAGE);
+        });
+        add(btnQueCategoriaTengo);
 	}
 	
     public JTextField getCampoTextoNombreCategoria()
@@ -70,11 +79,11 @@ public class PanelSegundo extends BackgroundPanel
         return botonIngresarCategoria;
     }
     
-    public JComboBox<String> getComboCategoria()
+    public JComboBox<ItemComboBox> getComboCategoria()
     {
         if (comboCategoria == null)
         {
-            comboCategoria = new JComboBox();
+            comboCategoria = new JComboBox<ItemComboBox>();
             comboCategoria.setBounds(300, 80, 200, 30);
         }
         return comboCategoria;

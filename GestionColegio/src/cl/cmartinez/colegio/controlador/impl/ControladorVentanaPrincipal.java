@@ -23,6 +23,7 @@ import cl.cmartinez.colegio.controlador.Controlador;
 import cl.cmartinez.colegio.modelo.entidades.Categoria;
 import cl.cmartinez.colegio.modelo.impl.ModeloVentanaPrincipal;
 import cl.cmartinez.colegio.vista.impl.VentanaPrincipal;
+import cl.cmartinez.colegio.vista.impl.principal.ItemComboBox;
 
 /**
  *
@@ -119,19 +120,22 @@ public final class ControladorVentanaPrincipal
     @Override
     public void itemStateChanged(ItemEvent e)
     {
-        JComboBox<String> c = (JComboBox)e.getSource();
+        JComboBox<ItemComboBox> c = (JComboBox)e.getSource();
         String nombre = c.getName();
     }
 
     private void cargarCategorias()
     {
-        JComboBox<String> comboCategoria = getVentana().getPanelCentral().getPanelSegundo().getComboCategoria();
+        JComboBox<ItemComboBox> comboCategoria = getVentana().getPanelCentral().getPanelSegundo().getComboCategoria();
         comboCategoria.removeAllItems();
         //ArrayList<String> lista = getModeloVentanaPrincipal().obtenerElementosComboCategoria();
         List<Categoria> lista = getModelo().obtenerTodasLasCategorias();
         for(Categoria elemento: lista)
         {
-            comboCategoria.addItem(elemento.getNombre());
+        	ItemComboBox item = new ItemComboBox();
+        	item.setNombre(elemento.getNombre());
+        	item.setValor(elemento.getId());
+            comboCategoria.addItem(item);
         }
     }
 
