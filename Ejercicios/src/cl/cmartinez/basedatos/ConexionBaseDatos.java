@@ -7,6 +7,7 @@ package cl.cmartinez.basedatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -44,7 +45,26 @@ public class ConexionBaseDatos
             //STEP 4: Execute a query
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
-            String sql = "SELECT id, precio_venta, stock FROM producto";
+            
+            String username = "Gilberto' OR '1' = '1";
+            
+            String sql = "SELECT * FROM usuario WHERE nombre_usuario = ? ";
+            
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            
+            //rs = stmt.executeQuery(sql);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+               System.out.print("ID: " + rs.getInt("id"));
+               System.out.print(", Usuario: " + rs.getString("nombre_usuario"));
+               System.out.println(", Pwd: " + rs.getString("password"));
+            }
+            
+            /*String sql = "SELECT id, precio_venta, stock FROM producto";
             rs = stmt.executeQuery(sql);
             
             //STEP 5: Extract data from result set
@@ -59,7 +79,7 @@ public class ConexionBaseDatos
                System.out.print("ID: " + id);
                System.out.print(", Precio Venta: " + precioVenta);
                System.out.println(", Stock: " + stock);
-            }            
+            }*/
         }
         catch (ClassNotFoundException ex)
         {

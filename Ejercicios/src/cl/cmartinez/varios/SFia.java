@@ -14,7 +14,7 @@ public class SFia {
 		
 		// comparador
 		
-		Integer uno = 1;
+		/*Integer uno = 1;
 		Integer dos = 2;
 		Integer tres = 3;
 		Integer otrotres = new Integer(3);
@@ -35,7 +35,13 @@ public class SFia {
 		p2.setNombre("pedro");
 		p2.setEdad(45);
 		
-		System.out.println("" + p1.getNombre() + " compareTo " + p2.getNombre() + " => " + p1.compareTo(p2));
+		System.out.println("" + p1.getNombre() + " compareTo " + p2.getNombre() + " => " + p1.compareTo(p2));*/
+		
+		for(int i = 0; i < 10; i++)
+		{
+			i = ++i;
+			System.out.println("Hola Mundo => " + i);
+		}
 		
 	}
 }
